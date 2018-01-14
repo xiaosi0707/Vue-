@@ -83,7 +83,7 @@ var router = new VueRouter({
 
 // 全局钩子函数
 router.beforeEach((to, from, next) => {
-  if (to.meta.login) {
+  if (to.meta.login === false) {
     next('/login')
   } else {
     next()
@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
 })
 // 全局钩子函数
 router.afterEach((to, from) => {
-  console.log(to, from)
+  // console.log(to, from)
   if (to.meta.title) {
     window.document.title = to.meta.title
   } else {
