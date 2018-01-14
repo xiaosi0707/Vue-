@@ -9,6 +9,7 @@ import Study from '@/components/child/study'
 import Work from '@/components/child/work'
 import Like from '@/components/child/like'
 import User from '@/components/user'
+import Login from '@/components/login'
 // import noFound from '@/components/nofound'
 import VueRouter from 'vue-router'
 import '@/assets/css/app.css'
@@ -21,12 +22,18 @@ var router = new VueRouter({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        title: 'home'
+      }
     },
     {
       path: '/document',
       name: 'Document',
-      component: Document
+      component: Document,
+      meta: {
+        title: 'document'
+      }
     },
     {
       path: '/about',
@@ -35,11 +42,17 @@ var router = new VueRouter({
       children: [
         {
           path: '',
-          component: Study
+          component: Study,
+          meta: {
+            title: 'study'
+          }
         },
         {
           path: '/about/work',
-          component: Work
+          component: Work,
+          meta: {
+            title: 'work'
+          }
         },
         {
           path: '/about/like',
@@ -49,7 +62,16 @@ var router = new VueRouter({
     },
     {
       path: '/user/:userId?',
-      component: User
+      component: User,
+      meta: {
+        title: 'user',
+        login: true
+      }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '*',
@@ -57,6 +79,24 @@ var router = new VueRouter({
       component: Home
     }
   ]
+})
+
+// 全局钩子函数
+router.beforeEach((to, from, next) => {
+  if (to.meta.login) {
+    next('/login')
+  } else {
+    next()
+  }
+})
+// 全局钩子函数
+router.afterEach((to, from) => {
+  console.log(to, from)
+  if (to.meta.title) {
+    window.document.title = to.meta.title
+  } else {
+    window.document.title = '1704D'
+  }
 })
 
 Vue.config.productionTip = false
