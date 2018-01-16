@@ -16,6 +16,23 @@
           </div>
         <div class="detail-content" v-html="detailData.content"></div>
       </div>
+      <div class="detail-msg">
+        <div class="header">
+          <span>{{ detailData.reply_count }} 回复</span>
+        </div>
+        <div class="detail-msg-list">
+          <dl v-for="(item,key,index) in detailData.replies" :key="index">
+            <dt>
+              <img :src="item.author.avatar_url" alt="">
+            </dt>
+            <dd>
+              <p><span>{{ item.author.loginname }}</span><i @click="up(item)">赞<u v-show="item.is_uped">1</u></i><em
+                @click="replyText(item)">回复</em></p>
+              <p v-html="item.content"></p>
+            </dd>
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,7 +42,8 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      detailData: {}
+      detailData: {},
+      replyData: []
     }
   },
   created () {
