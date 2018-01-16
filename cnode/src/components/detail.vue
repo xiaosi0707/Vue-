@@ -6,7 +6,7 @@
         <div class="title-msg">发布于8个月前·作者 {{ detailData.author.loginname }}·{{
           detailData.visit_count }} 次浏览·最后一次编辑是 5
           个月前·来自 分享
-          <a href="javascript:;">收藏</a>
+          <a href="javascript:;" :class="{active: isCollection}" @click="collection">{{ isCollection ? '取消收藏' : '收藏' }}</a>
           <!--<p>-->
             <!--<router-link :to="{path:'/edit', query: {id: detailData.id, loginname: detailData.author.loginname}}"-->
                          <!--tag="span">编辑-->
@@ -39,18 +39,45 @@
 
 <script>
 import axios from 'axios'
+let token = '29f4c9a1-2b49-4ec0-b5fc-2abfb4f3635f'
+let topicId = ''
+let collectionApi = ''
 export default {
   data () {
     return {
       detailData: {},
-      replyData: []
+      replyData: [],
+      isCollection: Boolean
+    }
+  },
+  methods: {
+    // 收藏
+    collection () {
+      if (this.detailData.is_collect) {
+        console.log('已收藏')
+        this.$set(this.detailData, 'is_collect', false) // $set 后添加的实例对象属性不具备响应式的特性，需要通过$set进行处理
+        this.isCollection = false
+        collectionApi = 'de_collect'
+      } else {
+        console.log('未收藏')
+        this.$set(this.detailData, 'is_collect', true)
+        this.isCollection = true
+        collectionApi = 'collect'
+      }
+      // 修改数据库
+      axios.post('https://cnodejs.org/api/v1/topic_collect/' + collectionApi, {
+        accesstoken: token,
+        topic_id: topicId
+      }).then((res) => {
+        console.log(res)
+      })
     }
   },
   created () {
-    var id = this.$route.params.id
-    axios.get('https://cnodejs.org/api/v1/topic/' + id).then((res) => {
-      console.log(res)
+    topicId = this.$route.params.id
+    axios.get('https://cnodejs.org/api/v1/topic/' + topicId + '?accesstoken=' + token).then((res) => {
       this.detailData = res.data.data
+      this.isCollection = this.detailData.is_collect
     })
   }
 }
@@ -100,6 +127,7 @@ export default {
             float: right;
             margin-left: 12px;
             text-align: center;
+            margin-top: -12px;
             &.active {
               background: #E5E5E5;
               color: black;
