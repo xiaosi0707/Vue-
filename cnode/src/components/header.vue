@@ -1,9 +1,9 @@
 <template>
   <div class="navbar">
     <div class="navbar-inner">
-      <a href="" class="logo">
+      <router-link class="logo" to="/">
         <img src="../assets/imgs/cnodejs_light.svg" alt="">
-      </a>
+      </router-link>
       <form class="search">
         <input type="text">
         <img src="../assets/imgs/search.e53b380a.hashed.png" alt="">
