@@ -32,15 +32,26 @@ export default {
     }
   },
   created () {
-    axios.get('https://cnodejs.org/api/v1/topics', {
-      params: {
-        page: 1,
-        tab: 'all',
-        limit: 30
-      }
-    }).then((res) => {
-      this.topicListData = res.data.data
-    })
+    this.getTopicData('all')
+  },
+  methods: {
+    getTopicData (tab) {
+      axios.get('https://cnodejs.org/api/v1/topics', {
+        params: {
+          page: 1,
+          tab: tab,
+          limit: 30
+        }
+      }).then((res) => {
+        this.topicListData = res.data.data
+      })
+    }
+  },
+  watch: {
+    $route () {
+      let tabQuery = this.$route.query.tab
+      this.getTopicData(tabQuery)
+    }
   }
 }
 </script>
@@ -54,7 +65,7 @@ export default {
       border-bottom: 1px #F0F0F0 solid;
       .user-avatar {
         float: left;
-        width: 130px;
+        width: 136px;
         overflow: hidden;
         img {
           float: left;

@@ -2,12 +2,12 @@
   <div class="main">
     <div class="content">
       <div class="header">
-        <a href="">全部</a>
-        <a href="">精华</a>
-        <a href="">分享</a>
-        <a href="">问答</a>
-        <a href="">招聘</a>
-        <a href="">客户端测试</a>
+        <router-link to="/?tab=all">全部</router-link>
+        <router-link to="/?tab=good">精华</router-link>
+        <router-link to="/?tab=share">分享</router-link>
+        <router-link to="/?tab=ask">问答</router-link>
+        <router-link to="/?tab=job">招聘</router-link>
+        <router-link to="/?tab=dev">客户端测试</router-link>
       </div>
       <topic-list></topic-list>
     </div>
@@ -19,6 +19,8 @@ import topicList from '@/components/topic-list'
 export default {
   components: {
     topicList
+  },
+  created () {
   }
 }
 </script>
