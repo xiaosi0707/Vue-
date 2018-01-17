@@ -142,6 +142,7 @@ export default {
     axios.get('https://cnodejs.org/api/v1/topic/' + topicId + '?accesstoken=' + token).then((res) => {
       this.detailData = res.data.data
       this.isCollection = this.detailData.is_collect
+      document.title = this.detailData.title
     })
   }
 }

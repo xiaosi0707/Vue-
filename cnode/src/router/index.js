@@ -7,13 +7,16 @@ import collectionList from '@/components/collection-list'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
       name: 'index',
-      component: index
+      component: index,
+      meta: {
+        title: 'CNode：Node.js专业中文社区'
+      }
     },
     {
       path: '/detail/:id?',
@@ -32,3 +35,11 @@ export default new Router({
     }
   ]
 })
+
+router.afterEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+})
+
+export default router

@@ -43,6 +43,7 @@ export default {
         }
       }).then((res) => {
         this.topicListData = res.data.data
+        document.title = tab + '版块 - CNode技术社区'
       })
     }
   },

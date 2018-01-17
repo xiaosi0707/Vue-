@@ -55,6 +55,7 @@ export default {
     let paramsUserName = this.$route.params.userName
     axios.get('https://cnodejs.org/api/v1/user/' + paramsUserName).then((res) => {
       this.userCenterData = res.data.data
+      document.title = paramsUserName + '个人主页'
     })
     axios.get('https://cnodejs.org/api/v1/topic_collect/' + paramsUserName).then((res) => {
       this.collectionNum = res.data.data
