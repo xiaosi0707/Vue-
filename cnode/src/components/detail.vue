@@ -58,6 +58,7 @@ let token = '29f4c9a1-2b49-4ec0-b5fc-2abfb4f3635f'
 let topicId = ''
 let collectionApi = ''
 let content = ''
+let alertText = ''
 export default {
   data () {
     return {
@@ -91,16 +92,19 @@ export default {
         console.log(res)
       })
     },
-    // 留言
+    // 留言textarea显示
     showThisTextArea (item) {
       this.replyId = item.id
       this.replyContent = '@' + item.author.loginname
     },
+    // 留言&回复
     reply (obj) {
       if (obj) {
         content = this.replyContent
+        alertText = '回复成功'
       } else {
         content = this.messageContent
+        alertText = '留言成功'
       }
       axios.post('https://cnodejs.org/api/v1/topic/' + topicId + '/replies', {
         accesstoken: token,
@@ -111,9 +115,19 @@ export default {
           alert(res.data.error_msg)
         }
         if (res.data.success) {
-          alert('留言成功')
-          // window.location.reload()
+          alert(alertText)
         }
+      })
+    },
+    // 赞
+    up (item) {
+      // this.$set(item, 'is_uped', true) 也可以
+      axios.post('https://cnodejs.org/api/v1/reply/' + item.id + '/ups', {
+        accesstoken: token
+      }).then((res) => {
+        res.data.action === 'up' ? this.$set(item, 'is_uped', true) : this.$set(item, 'is_uped', false)
+        if (res.data.action === 'up') alert('点赞成功')
+        if (res.data.action === 'down') alert('取消成功')
       })
     }
   },
