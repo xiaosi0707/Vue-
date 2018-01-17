@@ -9,18 +9,47 @@
         <router-link to="/?tab=job">招聘</router-link>
         <router-link to="/?tab=dev">客户端测试</router-link>
       </div>
-      <topic-list></topic-list>
+      <topic-list :topicListData="topicListData"></topic-list>
     </div>
+    <user-info user-name="xiaosi0707"></user-info>
   </div>
 </template>
 
 <script>
 import topicList from '@/components/topic-list'
+import userInfo from '@/components/user-info'
+import axios from 'axios'
 export default {
   components: {
-    topicList
+    topicList,
+    userInfo
+  },
+  data () {
+    return {
+      topicListData: []
+    }
   },
   created () {
+    this.getTopicData()
+  },
+  methods: {
+    getTopicData () {
+      let tab = this.$route.query.tab
+      axios.get('https://cnodejs.org/api/v1/topics', {
+        params: {
+          page: 1,
+          tab: tab,
+          limit: 30
+        }
+      }).then((res) => {
+        this.topicListData = res.data.data
+      })
+    }
+  },
+  watch: {
+    $route () {
+      this.getTopicData()
+    }
   }
 }
 </script>

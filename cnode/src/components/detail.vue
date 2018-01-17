@@ -49,10 +49,12 @@
         </div>
       </div>
     </div>
+    <user-info :user-name="detailData.author.loginname"></user-info>
   </div>
 </template>
 
 <script>
+import userInfo from '@/components/user-info'
 import axios from 'axios'
 let token = '29f4c9a1-2b49-4ec0-b5fc-2abfb4f3635f'
 let topicId = ''
@@ -60,6 +62,9 @@ let collectionApi = ''
 let content = ''
 let alertText = ''
 export default {
+  components: {
+    userInfo
+  },
   data () {
     return {
       detailData: {},
@@ -67,7 +72,8 @@ export default {
       replyContent: '',
       messageContent: '',
       replyShow: false,
-      replyId: ''
+      replyId: '',
+      userName: ''
     }
   },
   methods: {

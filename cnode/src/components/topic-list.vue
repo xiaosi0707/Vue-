@@ -2,9 +2,9 @@
     <div class="list">
       <div class="cell" v-for="(item, key, index) in topicListData" :key="index">
         <p class="user-avatar">
-          <a href="">
+          <router-link :to="{ name:'userCenter', params: { userName: item.author.loginname } }">
             <img :src="item.author.avatar_url" alt="">
-          </a>
+          </router-link>
           <span>{{ item.reply_count }} / {{ item.visit_count }}</span>
         </p>
         <p class="title">
@@ -24,33 +24,10 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  data () {
-    return {
-      topicListData: []
-    }
-  },
-  created () {
-    this.getTopicData('all')
-  },
-  methods: {
-    getTopicData (tab) {
-      axios.get('https://cnodejs.org/api/v1/topics', {
-        params: {
-          page: 1,
-          tab: tab,
-          limit: 30
-        }
-      }).then((res) => {
-        this.topicListData = res.data.data
-      })
-    }
-  },
-  watch: {
-    $route () {
-      let tabQuery = this.$route.query.tab
-      this.getTopicData(tabQuery)
+  props: {
+    topicListData: {
+      type: Array
     }
   }
 }
