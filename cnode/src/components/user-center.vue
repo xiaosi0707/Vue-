@@ -16,7 +16,7 @@
             积分： {{ userCenterData.score }}
           </p>
           <p>
-            <a href="">话题</a>
+            <router-link :to="{ name:'collectionList', params: { userName: userCenterData.loginname } }">{{ collectionNum.length }}个话题收藏</router-link>
           </p>
           <p>
             <span>注册时间{{ userCenterData.create_at }}</span>
@@ -47,13 +47,17 @@ export default {
   },
   data () {
     return {
-      userCenterData: {}
+      userCenterData: {},
+      collectionNum: []
     }
   },
   created () {
     let paramsUserName = this.$route.params.userName
     axios.get('https://cnodejs.org/api/v1/user/' + paramsUserName).then((res) => {
       this.userCenterData = res.data.data
+    })
+    axios.get('https://cnodejs.org/api/v1/topic_collect/' + paramsUserName).then((res) => {
+      this.collectionNum = res.data.data
     })
   }
 }
