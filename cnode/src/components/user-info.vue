@@ -6,9 +6,9 @@
     <div class="user-info">
       <dl>
         <dt>
-          <a href="">
-            <img :src="userInfo.avatar_url" alt="">
-          </a>
+            <router-link :to="{ name:'userCenter', params: { userName: userInfo.loginname } }">
+              <img :src="userInfo.avatar_url" alt="">
+            </router-link>
         </dt>
         <dd>
           {{ userInfo.loginname }}
@@ -39,10 +39,11 @@ export default {
     }
   },
   created () {
-    console.log(this.userName)
-    axios.get('https://cnodejs.org/api/v1/user/' + this.userName).then((res) => {
-      this.userInfo = res.data.data
-    })
+    setTimeout(() => {
+      axios.get('https://cnodejs.org/api/v1/user/' + this.userName).then((res) => {
+        this.userInfo = res.data.data
+      })
+    }, 1000)
   }
 }
 </script>

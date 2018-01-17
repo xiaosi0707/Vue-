@@ -28,7 +28,7 @@
         <topic-list :topicListData="userCenterData.recent_topics"></topic-list>
       </div>
       <div class="new-create-topic">
-        <div class="header"><span>最近参与的话题</span></div>
+        <div class="header"><span>最近参与的话题{{userCenterData.loginname}}</span></div>
         <topic-list :topicListData="userCenterData.recent_replies"></topic-list>
       </div>
     </div>
