@@ -27,10 +27,25 @@
             </dt>
             <dd>
               <p><span>{{ item.author.loginname }}</span><i @click="up(item)">赞<u v-show="item.is_uped">1</u></i><em
-                @click="replyText(item)">回复</em></p>
+                @click="showThisTextArea(item)">回复</em></p>
               <p v-html="item.content"></p>
             </dd>
+            <p v-show="item.id === replyId">
+              <textarea name="" id="" cols="30" rows="10" v-model="replyContent"></textarea>
+              <a href="javascript:;" @click="reply(item)">回复</a>
+            </p>
           </dl>
+        </div>
+      </div>
+      <div class="detail-reply">
+        <div class="header">
+          <span>添加回复</span>
+        </div>
+        <div class="detail-reply-content">
+          <textarea v-model="messageContent"></textarea>
+        </div>
+        <div class="sub-btn">
+          <a href="javascript:;" @click="reply()">回复</a>
         </div>
       </div>
     </div>
@@ -42,12 +57,16 @@ import axios from 'axios'
 let token = '29f4c9a1-2b49-4ec0-b5fc-2abfb4f3635f'
 let topicId = ''
 let collectionApi = ''
+let content = ''
 export default {
   data () {
     return {
       detailData: {},
-      replyData: [],
-      isCollection: Boolean
+      isCollection: Boolean,
+      replyContent: '',
+      messageContent: '',
+      replyShow: false,
+      replyId: ''
     }
   },
   methods: {
@@ -70,6 +89,31 @@ export default {
         topic_id: topicId
       }).then((res) => {
         console.log(res)
+      })
+    },
+    // 留言
+    showThisTextArea (item) {
+      this.replyId = item.id
+      this.replyContent = '@' + item.author.loginname
+    },
+    reply (obj) {
+      if (obj) {
+        content = this.replyContent
+      } else {
+        content = this.messageContent
+      }
+      axios.post('https://cnodejs.org/api/v1/topic/' + topicId + '/replies', {
+        accesstoken: token,
+        content: content,
+        reply_id: this.replyId
+      }).then((res) => {
+        if (!res.data.success) {
+          alert(res.data.error_msg)
+        }
+        if (res.data.success) {
+          alert('留言成功')
+          // window.location.reload()
+        }
       })
     }
   },
@@ -209,6 +253,7 @@ export default {
           overflow: hidden;
           dl {
             padding: 12px;
+            border-bottom: 1px #F0F0F0 solid;
             dt {
               float: left;
               margin-right: 12px;
