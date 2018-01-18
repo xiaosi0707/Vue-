@@ -10,6 +10,7 @@
       </form>
       <nav class="nav">
         <a href="">首页</a>
+        <router-link to="message">未读消息</router-link>
         <a href="">新手入门</a>
         <a href="">API</a>
         <a href="">关于</a>

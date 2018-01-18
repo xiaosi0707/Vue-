@@ -5,6 +5,7 @@ import detail from '@/components/detail'
 import userCenter from '@/components/user-center'
 import collectionList from '@/components/collection-list'
 import createTopic from '@/components/create-topic'
+import message from '@/components/message'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ let router = new Router({
       path: '/createTopic',
       name: 'createTopic',
       component: createTopic
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: message
     }
   ]
 })
