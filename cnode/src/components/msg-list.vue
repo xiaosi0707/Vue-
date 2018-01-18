@@ -3,9 +3,8 @@
     <div class="header">
       <span>{{ title }}</span>
     </div>
+    <div class="cell" v-show="messageData.length === 0"><p class="title">无消息</p></div>
     <div class="cell" v-for="(item, key, index) in messageData" :key="index">
-      <p class="user-avatar">
-      </p>
       <p class="title">
         <router-link :to="{ name:'userCenter', params: { userName: item.author.loginname } }">{{ item.author.loginname }}</router-link> <span v-show="item.type === 'reply'">回复了你的话题</span><span v-show="item.type === 'at'">在话题</span> <router-link :to="{ name:'detail', params: { id: item.topic.id } }">{{ item.topic.title }}</router-link><span v-show="item.type === 'at'">中@了你</span>
       </p>
@@ -54,6 +53,7 @@ export default {
     height: 50px;
     line-height: 50px;
     border-bottom: 1px #F0F0F0 solid;
+    overflow: hidden;
   .user-avatar {
     float: left;
     width: 136px;
