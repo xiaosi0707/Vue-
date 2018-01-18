@@ -32,7 +32,12 @@
         <topic-list :topicListData="userCenterData.recent_replies"></topic-list>
       </div>
     </div>
-    <user-info :user-name="userCenterData.loginname"></user-info>
+    <div class="aside">
+      <user-info :user-name="userCenterData.loginname"></user-info>
+      <div class="create-topic">
+        <router-link to="/createTopic">发布话题</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -202,6 +207,7 @@ export default {
         margin-top: 24px;
         float: right;
         overflow: hidden;
+        text-align: center;
         a {
           display: inline-block;
           width: 84px;

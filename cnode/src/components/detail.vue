@@ -7,12 +7,12 @@
           detailData.visit_count }} 次浏览·最后一次编辑是 5
           个月前·来自 分享
           <a href="javascript:;" :class="{active: isCollection}" @click="collection">{{ isCollection ? '取消收藏' : '收藏' }}</a>
-          <!--<p>-->
-            <!--<router-link :to="{path:'/edit', query: {id: detailData.id, loginname: detailData.author.loginname}}"-->
-                         <!--tag="span">编辑-->
-            <!--</router-link>-->
-            <!--<span href="javascript:;">删除</span>-->
-          <!--</p>-->
+          <p>
+            <router-link :to="{name:'createTopic', params: {id: detailData.id, loginname: detailData.author.loginname, title: detailData.title, content: detailData.content, tab: detailData.tab }}"
+                         tag="span">编辑
+            </router-link>
+            <span href="javascript:;">删除</span>
+          </p>
           </div>
         <div class="detail-content" v-html="detailData.content"></div>
       </div>

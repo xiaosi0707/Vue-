@@ -2,15 +2,15 @@
   <div class="main">
     <div class="content">
       <div class="header">
-        <a href="">发布话题</a>
+        <a href="">{{ navTitle }}</a>
       </div>
       <div class="create-form">
         <ul>
           <li>
-            <span>选择版块</span>
+            <span>选择版块{{ selected }}</span>
             <select name="" id="" v-model="selected">
-              <option value="" selected>请选择</option>
-              <option :value="item.id" v-for="(item, key, index) in dataSelect" :key="index">{{ item.name }}</option>
+              <option value="">请选择</option>
+              <option :value="item.id" v-for="(item, key, index) in dataSelect" :key="index" selected>{{ item.name }}</option>
             </select>
           </li>
           <li>
@@ -49,23 +49,34 @@ let arrSelect = [
     name: '客户端测试'
   }
 ]
+let apiUrl = ''
+let topicId = ''
 export default {
   data () {
     return {
-      title: '',
-      content: '',
+      title: this.$route.params.title,
+      content: this.$route.params.content,
       dataSelect: arrSelect,
-      selected: ''
+      selected: '',
+      navTitle: ''
     }
   },
-  /* eslint-disable no-new */
   created () {
-    console.log(global.globalData.api)
+    console.log(this.$route.params)
+    if (this.$route.params.id) {
+      apiUrl = '/topics/update'
+      topicId = this.$route.params.id
+      this.navTitle = '编辑主题'
+    } else {
+      apiUrl = '/topics'
+      this.navTitle = '发布主题'
+    }
   },
   methods: {
     createTopic () {
-      axios.post('https://cnodejs.org/api/v1/topics', {
+      axios.post('https://cnodejs.org/api/v1/' + apiUrl, {
         accesstoken: token,
+        topic_id: topicId,
         title: this.title,
         tab: this.selected,
         content: this.content
