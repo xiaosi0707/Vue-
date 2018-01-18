@@ -11,7 +11,12 @@
       </div>
       <topic-list :topicListData="topicListData"></topic-list>
     </div>
-    <user-info user-name="xiaosi0707"></user-info>
+    <div class="aside">
+      <user-info user-name="xiaosi0707"></user-info>
+      <div class="create-topic">
+        <router-link to="/createTopic">发布话题</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -85,9 +90,10 @@ export default {
         height: 54px;
         line-height: 32px;
         background: white;
-        margin-top: 24px;
+        margin-top: 12px;
         float: right;
         overflow: hidden;
+        text-align: center;
         a {
           display: inline-block;
           width: 84px;
