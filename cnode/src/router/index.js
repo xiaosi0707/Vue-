@@ -21,7 +21,7 @@ let router = new Router({
       }
     },
     {
-      path: '/detail/:id?',
+      path: '/detail/:id?', // 传参第一步：形参配置
       name: 'detail',
       component: detail
     },

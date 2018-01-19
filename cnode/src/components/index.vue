@@ -60,6 +60,12 @@ export default {
 }
 </script>
 <style scoped lang="scss" rel="stylesheet/scss">
+  .vue-loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+  }
   .main {
     width: 90%;
     margin: 12px auto;

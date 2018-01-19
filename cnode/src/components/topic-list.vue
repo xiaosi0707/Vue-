@@ -13,6 +13,7 @@
           <em v-show="!item.top && item.tab === 'share'">分享</em>
           <em v-show="item.tab === 'ask'">问答</em>
           <em v-show="item.tab === 'job'">招聘</em>
+          <!-- 传参第二步： 实参设置 -->
           <router-link :to="{ name:'detail', params: { id: item.id } }">{{ item.title }}</router-link>
         </p>
         <p class="reply-avatar">

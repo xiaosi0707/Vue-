@@ -145,7 +145,7 @@ export default {
       })
     },
     getDetailData () {
-      topicId = this.$route.params.id
+      topicId = this.$route.params.id // 传参第三步：通过$route接收传递过来的实参，然后给到详情页的API
       axios.get('https://cnodejs.org/api/v1/topic/' + topicId + '?accesstoken=' + token).then((res) => {
         this.detailData = res.data.data
         this.isCollection = this.detailData.is_collect
