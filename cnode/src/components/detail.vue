@@ -61,6 +61,17 @@ let topicId = ''
 let collectionApi = ''
 let content = ''
 let alertText = ''
+// let bbb = { // 测试留言即时生效数据 模拟留言对象数据字段
+//   author: {
+//     loginname: '小四',
+//     avatar_url: 'http.baidu.com'
+//   },
+//   content: 'aaaaaaaaaaa',
+//   create_at: '2018-01-19T01:21:50.802Z',
+//   id: '5a61482e9d371d4a059eec3444',
+//   is_uped: false,
+//   reply_id: null
+// }
 export default {
   components: {
     userInfo
@@ -80,12 +91,10 @@ export default {
     // 收藏
     collection () {
       if (this.detailData.is_collect) {
-        console.log('已收藏')
         this.$set(this.detailData, 'is_collect', false) // $set 后添加的实例对象属性不具备响应式的特性，需要通过$set进行处理
         this.isCollection = false
         collectionApi = 'de_collect'
       } else {
-        console.log('未收藏')
         this.$set(this.detailData, 'is_collect', true)
         this.isCollection = true
         collectionApi = 'collect'
@@ -117,11 +126,10 @@ export default {
         content: content,
         reply_id: this.replyId
       }).then((res) => {
-        if (!res.data.success) {
-          alert(res.data.error_msg)
-        }
         if (res.data.success) {
           alert(alertText)
+          // this.detailData.replies.push(bbb) // push变异方法，可以实现实时更新留言内容，但是请求完借口以后并未返回对应内容，所以push无法解决此问题
+          this.getDetailData() // 留言完成，再次请求数据
         }
       })
     },
@@ -135,15 +143,18 @@ export default {
         if (res.data.action === 'up') alert('点赞成功')
         if (res.data.action === 'down') alert('取消成功')
       })
+    },
+    getDetailData () {
+      topicId = this.$route.params.id
+      axios.get('https://cnodejs.org/api/v1/topic/' + topicId + '?accesstoken=' + token).then((res) => {
+        this.detailData = res.data.data
+        this.isCollection = this.detailData.is_collect
+        document.title = this.detailData.title
+      })
     }
   },
   created () {
-    topicId = this.$route.params.id
-    axios.get('https://cnodejs.org/api/v1/topic/' + topicId + '?accesstoken=' + token).then((res) => {
-      this.detailData = res.data.data
-      this.isCollection = this.detailData.is_collect
-      document.title = this.detailData.title
-    })
+    this.getDetailData()
   }
 }
 </script>

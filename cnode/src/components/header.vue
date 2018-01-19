@@ -9,7 +9,7 @@
         <img src="../assets/imgs/search.e53b380a.hashed.png" alt="">
       </form>
       <nav class="nav">
-        <a href="">首页</a>
+        <router-link to="/">首页</router-link>
         <router-link to="message">未读消息</router-link>
         <a href="">新手入门</a>
         <a href="">API</a>
