@@ -11,7 +11,7 @@
 <script>
 import header from '@/components/header'
 import vueLoading from 'vue-loading-template'
-// import '@/config/interceptors'
+import axios from 'axios'
 export default {
   components: {
     'v-header': header,
@@ -19,8 +19,15 @@ export default {
   },
   data () {
     return {
-      isLoading: false
+      isLoading: true
     }
+  },
+  created () {
+    axios.interceptors.response.use((response) => {
+      // 对响应数据做点什么
+      this.isLoading = false
+      return response
+    })
   }
 }
 

@@ -24,6 +24,7 @@
 import topicList from '@/components/topic-list'
 import userInfo from '@/components/user-info'
 import axios from 'axios'
+// import { AAA } from '@/config/global'
 export default {
   components: {
     topicList,
