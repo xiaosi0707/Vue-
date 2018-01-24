@@ -18,6 +18,11 @@
         :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
       </el-rate>
     </div>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="1000">
+    </el-pagination>
   </div>
 </template>
 
