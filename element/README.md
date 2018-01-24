@@ -11,7 +11,10 @@ npm run build
 
 在Vue-cli中如何使用ElementUI？
 
+
 方式一（完整引入）：
+
+
   1、cnpm install element-ui --save  // 安装element-ui
 
   2、在main.js中写入：
@@ -21,7 +24,12 @@ npm run build
 
   3、在vue组件中即可使用
 
+
+
+
 方式二（按需引入）：
+
+
   1、npm install babel-plugin-component --save  // 安装babel-plugin-component
 
   2、将 .babelrc 修改为：
