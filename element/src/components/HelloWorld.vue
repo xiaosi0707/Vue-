@@ -1,41 +1,51 @@
 <template>
   <div class="hello">
-    <div>
-      <el-button type="primary">主要按钮</el-button>
-      <el-button type="success">成功按钮</el-button>
-      <el-button type="info">信息按钮</el-button>
-      <el-button type="warning">警告按钮</el-button>
-      <el-button type="danger">危险按钮</el-button>
-    </div>
+    <el-select v-model="value" placeholder="请选择">
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import { Select, Option } from 'element-ui'
+Vue.use(Select)
+Vue.use(Option)
 export default {
-  name: 'HelloWorld',
+  components: {
+    Select,
+    Option
+  },
   data () {
     return {
-      value1: null,
-      value2: null,
-      tableData: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+      activeNames: ['1'],
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
       }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        value: '选项2',
+        label: '双皮奶'
       }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
       }],
-      loading: true
+      value: ''
     }
   },
-  watch: {
-    value1 () {
-      console.log(this.value1)
+  methods: {
+    handleChange (val) {
+      console.log(val)
     }
   }
 }
