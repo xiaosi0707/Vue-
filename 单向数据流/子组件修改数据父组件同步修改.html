@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>父组件的count</h1>
+        {{ count }}
+        <custom-com :count="count" @increment-click="parentHandle"></custom-com>
+    </div>
+
+    <script>
+        Vue.component('customCom', {
+            props: ['count'],
+            data () {
+                return {
+                    // 首先依旧作为局部初始值
+                    increment: this.count
+                }
+            },
+            computed: {
+                incrementCount () {
+                    return this.increment
+                }
+            },
+            template: `<div>
+            <h2>我是一个自定义组件</h2>
+            <p>{{ incrementCount }}</p>
+            <input type="button" value="改变" @click="changeCount">
+        </div>`,
+            methods: {
+                changeCount () {
+                    this.increment ++
+                    this.$emit('increment-click')
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                count: 0
+            },
+            methods: {
+                parentHandle () {
+                    this.count ++
+                }
+            }
+        })
+    </script>
+</body>
+</html>

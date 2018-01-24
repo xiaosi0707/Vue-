@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ count }}</p>
+        <custom-com :count="count"></custom-com>
+    </div>
+
+    <script>
+        Vue.component('customCom', {
+            props: ['count'],
+            template: `<div>
+            <h2>我是一个自定义组件</h2>
+            <p>{{ count }}</p>
+            <input type="button" value="改变" @click="changeCount">
+        </div>`,
+            methods: {
+                changeCount () {
+                    this.count ++
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                count: 0
+            }
+        })
+    </script>
+</body>
+</html>
