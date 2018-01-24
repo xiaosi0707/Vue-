@@ -9,8 +9,8 @@ npm run build
 
 
 
-#在Vue-cli中如何使用ElementUI？
 
+# 在Vue-cli中如何使用element-ui？
 
 方式一（完整引入）：
 
