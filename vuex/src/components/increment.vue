@@ -5,6 +5,9 @@
       <input type="button" value="-" @click="deHandle">
       <span>{{num}}</span>
       <input type="button" value="+" @click="addHandle">
+      <p>
+        <span>{{num1}}</span>
+      </p>
     </div>
   </div>
 </template>
@@ -14,14 +17,17 @@ export default {
   computed: {
     num () {
       return this.$store.state.count
+    },
+    num1 () {
+      return this.$store.getters.filterCount
     }
   },
   methods: {
     addHandle () {
-      // this.$store.commit('addIncrement', {
-      //   n: 5
-      // })
-      this.$store.dispatch('addAction')
+      this.$store.commit('addIncrement', {
+        n: 5
+      })
+      // this.$store.dispatch('addAction')
     },
     deHandle () {
       this.$store.commit({
