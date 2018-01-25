@@ -9,8 +9,8 @@ npm run build
 
 
 
-在Vue-cli中如何使用ElementUI？
 
+# 在Vue-cli中如何使用element-ui？
 
 方式一（完整引入）：
 
@@ -18,8 +18,11 @@ npm run build
   1、cnpm install element-ui --save  // 安装element-ui
 
   2、在main.js中写入：
+  
     import ElementUI from 'element-ui'
+    
     import 'element-ui/lib/theme-chalk/index.css'
+    
     Vue.use(ElementUI)
 
   3、在vue组件中即可使用
@@ -46,9 +49,13 @@ npm run build
     }
 
   3、在main.js中写入：
+  
      import { Tabs, TabPane } from 'element-ui'
+     
      import 'element-ui/lib/theme-chalk/index.css'
+     
      Vue.use(Tabs)
+     
      Vue.use(TabPane)
 
   4、在vue组件中即可使用
