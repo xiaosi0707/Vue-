@@ -1,22 +1,26 @@
 <template>
 <div>
   <ul class="list">
-    <li v-for="(item,key,index) in list" :key="index" @click="selectChild(item)">{{item.title}}</li>
+    <li v-for="(item,key,index) in data" :key="index" @click="getTitle(item)">{{item}}</li>
   </ul>
 </div>
 </template>
 
 <script>
 export default {
-  props: {
-    list: {
-      type: Array
+  computed: {
+    data () {
+      return this.$store.state.list
     }
   },
   methods: {
-    selectChild (obj) {
-      this.$emit('parentReceive', obj)
+    getTitle (val) {
+      this.$store.commit('changeTitle', val)
+      this.$store.commit('changeShow')
     }
+  },
+  created () {
+    this.$store.dispatch('getListAction')
   }
 }
 </script>

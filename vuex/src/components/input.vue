@@ -1,6 +1,6 @@
 <template>
     <div class="clearFix">
-      <input type="text" class="keyWord" :value="inputData" @click="showChild">
+      <input type="text" class="keyWord" :value="title" @click="showHandle">
       <input type="button" value="GO">
       <span></span>
     </div>
@@ -8,22 +8,14 @@
 
 <script>
 export default {
-  props: {
-    inputData: {
-      type: String
-    },
-    isShow: {
-      type: Boolean
-    }
-  },
   computed: {
-    initShow () {
-      return this.isShow
+    title () {
+      return this.$store.state.title
     }
   },
   methods: {
-    showChild () {
-      this.$emit('update:isShow', !this.initShow)
+    showHandle () {
+      this.$store.commit('changeShow')
     }
   }
 }
