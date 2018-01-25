@@ -14,6 +14,17 @@ let store = new Vuex.Store({
     deIncrement (state, n) {
       this.state.count -= 2
     }
+  },
+  actions: {
+    addAction (context) {
+      setTimeout(() => {
+        context.commit('addIncrement', {n: 5})
+        context.dispatch('otherAction', {text: '测试'})
+      }, 1000)
+    },
+    otherAction (context, obj) {
+      console.log(obj)
+    }
   }
 })
 

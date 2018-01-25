@@ -18,9 +18,10 @@ export default {
   },
   methods: {
     addHandle () {
-      this.$store.commit('addIncrement', {
-        n: 5
-      })
+      // this.$store.commit('addIncrement', {
+      //   n: 5
+      // })
+      this.$store.dispatch('addAction')
     },
     deHandle () {
       this.$store.commit({
