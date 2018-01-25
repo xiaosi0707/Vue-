@@ -1,39 +1,26 @@
 <template>
-  <div class="input">
-    <input type="text" placeholder="请输入搜索内容" :value="inputVal" @click="showHandle"/><button>搜索</button>
-  </div>
+    <div class="clearFix">
+      <input type="text" class="keyWord" :value="inputData" @click="showChild">
+      <input type="button" value="GO">
+      <span></span>
+    </div>
 </template>
 
 <script>
 export default {
-  computed: {
-    inputVal () {
-      return this.$store.state.val
+  props: {
+    inputData: {
+      type: String
     }
   },
   methods: {
-    showHandle () {
-      this.$store.commit('changeShow')
+    showChild () {
+      this.$emit('parentInputReceive')
     }
   }
 }
 </script>
 
 <style scoped>
-  .input {
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
 
-  }
-  .input input{
-    width: 200px;
-    height: 32px;
-    float: left;
-  }
-  .input button {
-    width: 120px;
-    height: 36px;
-    float: left;
-  }
 </style>

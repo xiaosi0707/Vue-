@@ -1,32 +1,50 @@
 <template>
-  <div class="select">
-    <app-input></app-input>
-    <app-list v-show="listShow"></app-list>
-  </div>
+  <section class="warp">
+    <div class="searchIpt clearFix">
+    <select-input :inputData="title" @parentInputReceive="inputParentHandle"></select-input>
+    <list :list="listData" @parentReceive="parentHandle" v-show="listShow"></list>
+    </div>
+  </section>
 </template>
 
 <script>
-import appInput from './input'
-import appList from './list'
-
+import selectInput from './input'
+import list from './list'
+let listData = [
+  {
+    title: '熊大'
+  },
+  {
+    title: '熊二'
+  },
+  {
+    title: '光头强'
+  }
+]
 export default {
   components: {
-    appInput,
-    appList
+    list,
+    selectInput
   },
-  computed: {
-    listShow () {
-      return this.$store.state.isShow
+  data () {
+    return {
+      listData,
+      title: '',
+      listShow: false
+    }
+  },
+  methods: {
+    parentHandle (obj) {
+      this.title = obj.title
+      this.listShow = false
+    },
+    inputParentHandle () {
+      this.listShow = !this.listShow
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.select {
-  width: 500px;
-  margin: 50px auto;
-  overflow: hidden;
-}
+<style>
+
 </style>
