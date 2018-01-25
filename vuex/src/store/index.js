@@ -5,30 +5,30 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
   state: {
-    count: 100
-  },
-  getters: {
-    filterCount (state) {
-      return state.count >= 120 ? 120 : state.count
-    }
+    val: '',
+    list: [
+      {
+        'name': '熊大',
+        'like': '靠谱'
+      },
+      {
+        'name': '熊二',
+        'like': '懒惰'
+      },
+      {
+        'name': '光头强',
+        'like': '孝顺'
+      }
+    ],
+    isShow: false
   },
   mutations: {
-    addIncrement (state, payLoad) {
-      this.state.count += payLoad.n
+    changeVal (state, payLoad) {
+      console.log(payLoad)
+      this.state.val = payLoad.name
     },
-    deIncrement (state, n) {
-      this.state.count -= 2
-    }
-  },
-  actions: {
-    addAction (context) {
-      setTimeout(() => {
-        context.commit('addIncrement', {n: 5})
-        context.dispatch('otherAction', {text: '测试'})
-      }, 1000)
-    },
-    otherAction (context, obj) {
-      console.log(obj)
+    changeShow (state) {
+      this.state.isShow = !this.state.isShow
     }
   }
 })

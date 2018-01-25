@@ -1,20 +1,21 @@
 <template>
     <div class="list">
       <ul>
-        <li v-for="(item, index) in selectList" :key="index" @click="selectChild(item)" @mouseup="listChange">{{ item.name }}</li>
+        <li v-for="(item, index) in selectList" :key="index" @click="getVal(item)">{{ item.name }}</li>
       </ul>
     </div>
 </template>
 
 <script>
 export default {
-  props: ['selectList', 'flag'],
+  computed: {
+    selectList () {
+      return this.$store.state.list
+    }
+  },
   methods: {
-    selectChild (obj) {
-      this.$emit('parentReceive', obj)
-    },
-    listChange () {
-      this.$emit('parentChange')
+    getVal (obj) {
+      this.$store.commit('changeVal', obj)
     }
   }
 }

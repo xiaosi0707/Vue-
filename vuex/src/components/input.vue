@@ -1,17 +1,19 @@
 <template>
   <div class="input">
-    <input type="text" placeholder="请输入搜索内容" :value="val" @click="changeIsShow"/><button>{{ selectBtnVal }}</button>
+    <input type="text" placeholder="请输入搜索内容" :value="inputVal" @click="showHandle"/><button>搜索</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['selectBtnVal', 'val'],
-  created () {
+  computed: {
+    inputVal () {
+      return this.$store.state.val
+    }
   },
   methods: {
-    changeIsShow () {
-      this.$emit('parentChangeShow')
+    showHandle () {
+      this.$store.commit('changeShow')
     }
   }
 }

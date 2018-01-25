@@ -1,7 +1,7 @@
 <template>
   <div class="select">
-    <app-input :select-btn-val="mainBtnVal" :val="val" @parentChangeShow="changeShowHandle"></app-input>
-    <app-list :selectList = 'list' @parentReceive="parentChange" @parentChange="listChangeShow" v-show="isShow"></app-list>
+    <app-input></app-input>
+    <app-list v-show="listShow"></app-list>
   </div>
 </template>
 
@@ -10,26 +10,13 @@ import appInput from './input'
 import appList from './list'
 
 export default {
-  props: ['mainBtnVal', 'list'],
   components: {
     appInput,
     appList
   },
-  data () {
-    return {
-      val: '',
-      isShow: false
-    }
-  },
-  methods: {
-    parentChange (obj) {
-      this.val = obj.name
-    },
-    changeShowHandle () {
-      this.isShow = !this.isShow
-    },
-    listChangeShow () {
-      this.isShow = false
+  computed: {
+    listShow () {
+      return this.$store.state.isShow
     }
   }
 }
