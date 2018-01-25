@@ -11,11 +11,19 @@ export default {
   props: {
     inputData: {
       type: String
+    },
+    isShow: {
+      type: Boolean
+    }
+  },
+  computed: {
+    initShow () {
+      return this.isShow
     }
   },
   methods: {
     showChild () {
-      this.$emit('parentInputReceive')
+      this.$emit('update:isShow', !this.initShow)
     }
   }
 }

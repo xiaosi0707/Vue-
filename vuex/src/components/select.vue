@@ -1,7 +1,7 @@
 <template>
   <section class="warp">
     <div class="searchIpt clearFix">
-    <select-input :inputData="title" @parentInputReceive="inputParentHandle"></select-input>
+    <select-input :inputData="title" :is-show.sync="listShow"></select-input>
     <list :list="listData" @parentReceive="parentHandle" v-show="listShow"></list>
     </div>
   </section>
@@ -37,9 +37,6 @@ export default {
     parentHandle (obj) {
       this.title = obj.title
       this.listShow = false
-    },
-    inputParentHandle () {
-      this.listShow = !this.listShow
     }
   }
 }
