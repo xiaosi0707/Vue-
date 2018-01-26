@@ -1,26 +1,21 @@
 <template>
-<div>
   <ul class="list">
-    <li v-for="(item,key,index) in data" :key="index" @click="getTitle(item)">{{item}}</li>
+    <li v-for="(item, key, index) in list" :key="index" @click="getTitle(item.title)">{{item.title}}</li>
   </ul>
-</div>
 </template>
 
 <script>
 export default {
   computed: {
-    data () {
+    list () {
       return this.$store.state.list
     }
   },
   methods: {
-    getTitle (val) {
-      this.$store.commit('changeTitle', val)
+    getTitle (str) {
+      this.$store.commit('changeTitle', str)
       this.$store.commit('changeShow')
     }
-  },
-  created () {
-    this.$store.dispatch('getListAction')
   }
 }
 </script>

@@ -9,26 +9,24 @@ let store = new Vuex.Store({
   },
   getters: {
     filterCount (state) {
-      return state.count >= 120 ? 120 : state.count
+      return state.count > 120 ? 120 : state.count
     }
   },
-  mutations: {
+  // 同步
+  mutations: { // 想要改变数据必须得通过commit提交一个mutation才可以，这是改变数据的唯一途径
     addIncrement (state, payLoad) {
-      this.state.count += payLoad.n
+      state.count += payLoad.n
     },
-    deIncrement (state, n) {
-      this.state.count -= 2
+    deIncrement (state) {
+      state.count--
     }
   },
+  // 异步
   actions: {
     addAction (context) {
       setTimeout(() => {
         context.commit('addIncrement', {n: 5})
-        context.dispatch('otherAction', {text: '测试'})
       }, 1000)
-    },
-    otherAction (context, obj) {
-      console.log(obj)
     }
   }
 })

@@ -1,8 +1,8 @@
 <template>
   <section class="warp">
     <div class="searchIpt clearFix">
-    <select-input ></select-input>
-    <list v-show=show></list>
+    <select-input></select-input>
+    <list v-show="isShow"></list>
     </div>
   </section>
 </template>
@@ -12,12 +12,12 @@ import selectInput from './input'
 import list from './list'
 export default {
   components: {
-    list,
-    selectInput
+    selectInput,
+    list
   },
   computed: {
-    show () {
-      return this.$store.state.isShow
+    isShow () {
+      return this.$store.state.listShow
     }
   }
 }

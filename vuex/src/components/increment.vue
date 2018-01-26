@@ -1,13 +1,11 @@
 <template>
   <div>
     <h2>简易加法计算器</h2>
+    <input type="button" value="-" @click="delHandle">
+    <span>{{ num }}</span>
+    <input type="button" value="+" @click="addHandle">
+    <p>{{ mum1 }}</p>
     <div>
-      <input type="button" value="-" @click="deHandle">
-      <span>{{num}}</span>
-      <input type="button" value="+" @click="addHandle">
-      <p>
-        <span>{{num1}}</span>
-      </p>
     </div>
   </div>
 </template>
@@ -18,22 +16,19 @@ export default {
     num () {
       return this.$store.state.count
     },
-    num1 () {
+    mum1 () {
       return this.$store.getters.filterCount
     }
   },
   methods: {
     addHandle () {
-      this.$store.commit('addIncrement', {
-        n: 5
-      })
-      // this.$store.dispatch('addAction')
+      // this.$store.commit('addIncrement', {
+      //   n: 5
+      // }) // 通过commit提交mutation
+      this.$store.dispatch('addAction') // 通过dispatch来触发action
     },
-    deHandle () {
-      this.$store.commit({
-        type: 'deIncrement',
-        n: 2
-      })
+    delHandle () {
+      this.$store.commit('deIncrement') // 通过commit提交mutation
     }
   }
 }
