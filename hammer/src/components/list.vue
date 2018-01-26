@@ -11,7 +11,11 @@
             <li><a href="javascript:;" class="">价格高到低</a></li>
           </ul>
         </div>
-        <goods-item :goodsData="goodsData"></goods-item>
+        <div class="gray-box">
+          <div class="item-box">
+        <goods-item v-for="(item, index) in goodsData" :key="index" :goodsItemData="item" ></goods-item>
+          </div>
+        </div>
       </div>
     </div>
   </div>

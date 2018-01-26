@@ -1,38 +1,45 @@
 <template>
-  <div class="gray-box">
-    <div class="item-box">
-      <div class="item" v-for="(item, key, index) in goodsData" :key="index">
-        <div>
-          <div class="item-img"><img alt="Smartisan 快充移动电源 10000mAh" src="http://image.smartisanos.cn/resource/ae40a16324658c192c7361d829f603bd.jpg?x-oss-process=image/resize,w_206/quality,Q_80/format,webp" style="opacity: 1;">
+      <div class="item">
+          <div class="item-img"><img alt="Smartisan 快充移动电源 10000mAh" :src="goodsItemData.sku_info[skuSelected].ali_image" style="opacity: 1;">
           </div>
-          <h6>{{ item.name }}</h6>
-          <h3 >{{ item.name_title }}</h3>
+          <h6>{{ goodsItemData.name }}</h6>
+          <h3 >{{ goodsItemData.name_title }}</h3>
           <div class="params-colors">
             <ul class="colors-list">
-              <li><a href="javascript:;" class="active"><img src="http://img01.smartisanos.cn/attr/v2/1000299/B37F37544921114CEF1EC01ED4DF44E4/20X20.jpg"></a></li>
+              <li v-for="(sku, index) in goodsItemData.sku_info" :key="index" >
+                <a href="javascript:;"  :class="{'active': skuSelected == index}" @click="skuActive(index)"><img :src="sku.spec_json.image"></a>
+              </li>
             </ul>
           </div>
           <div class="item-btns clearfix">
             <span class="item-gray-btn"><a href="javascript:;" target="_blank">查看详情</a> </span><span class="item-blue-btn">加入购物车 </span>
           </div>
           <div class="item-price clearfix">
-            <i>¥</i><span>{{ item.price }}</span>
+            <i>¥</i><span>{{ goodsItemData.price }}</span>
           </div>
           <div class="discount-icon">false</div>
           <div class="item-cover">
             <a href="javascript:;" target="_blank"></a>
           </div>
-        </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
 export default {
   props: {
-    goodsData: {
-      type: Array
+    goodsItemData: {
+      type: Object
+    }
+  },
+  data () {
+    return {
+      skuSelected: 0
+    }
+  },
+  methods: {
+    skuActive (index) {
+      console.log(typeof index)
+      this.skuSelected = index
     }
   }
 }
