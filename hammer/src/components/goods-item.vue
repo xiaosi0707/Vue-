@@ -12,14 +12,14 @@
             </ul>
           </div>
           <div class="item-btns clearfix">
-            <span class="item-gray-btn"><router-link to="/detail">查看详情</router-link></span><span class="item-blue-btn">加入购物车 </span>
+            <span class="item-gray-btn"><router-link :to="{ name: 'Detail', params: { skuId: goodsItemData.sku_info[skuSelected].sku_id}}">查看详情</router-link></span><span class="item-blue-btn">加入购物车 </span>
           </div>
           <div class="item-price clearfix">
             <i>¥</i><span>{{ goodsItemData.price }}</span>
           </div>
           <div class="discount-icon">false</div>
           <div class="item-cover">
-            <router-link to="/detail"></router-link>
+            <router-link :to="{ name: 'Detail', params: { skuId: goodsItemData.sku_info[skuSelected].sku_id}}"></router-link>
           </div>
       </div>
 </template>

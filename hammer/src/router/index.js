@@ -14,7 +14,7 @@ export default new Router({
       component: List
     },
     {
-      path: '/detail',
+      path: '/detail/:skuId?',
       name: 'Detail',
       component: Detail
     }

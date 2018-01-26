@@ -29,21 +29,21 @@
         <div class="banner">
           <div class="sku-custom-title">
             <div class="params-price">
-              <span><em>¥</em><i>199</i></span>
+              <span><em>¥</em><i>{{ detailData.price }}</i></span>
             </div>
             <div class="params-info">
-              <h4>Smartisan 快充移动电源 10000mAh</h4>
-              <h6>10000mAh 双向快充、轻盈便携、高标准安全保护</h6>
+              <h4>{{ detailData.title }}</h4>
+              <h6>{{ detailData.sub_title }}</h6>
             </div>
           </div>
           <div class="sku-dynamic-params-panel">
             <div class="sku-dynamic-params clear">
               <span class="params-name">颜色</span>
               <ul class="params-colors">
-                <li class="cur">
-                  <a href="">
-                    <i><img src="http://img01.smartisanos.cn/attr/v2/1000299/B37F37544921114CEF1EC01ED4DF44E4/20X20.jpg"></i>
-                  </a>
+                <li :class="{'cur': selectedSku === index}" @click="skuSelect(index)" v-for="(skuItem, index) in detailData.sku_list" :key="index">
+                  <router-link to="#">
+                    <i><img :src="skuItem.image"></i>
+                  </router-link>
                 </li>
               </ul>
             </div>
@@ -76,6 +76,26 @@ import appHeader from './header'
 export default {
   components: {
     appHeader
+  },
+  data () {
+    return {
+      detailData: {},
+      selectedSku: ''
+    }
+  },
+  created () {
+    let skuId = this.$route.params.skuId
+    this.$http.get(global.globalData.api + 'goods-detail').then((res) => {
+      this.detailData = res.data.filter((item) => {
+        console.log(item)
+        return item.sku_id === skuId
+      })[0]
+    })
+  },
+  methods: {
+    skuSelect (index) {
+      this.selectedSku = index
+    }
   }
 }
 </script>
