@@ -1,12 +1,12 @@
 <template>
   <div class="gray-box">
     <div class="item-box">
-      <div class="item">
+      <div class="item" v-for="(item, key, index) in goodsData" :key="index">
         <div>
           <div class="item-img"><img alt="Smartisan 快充移动电源 10000mAh" src="http://image.smartisanos.cn/resource/ae40a16324658c192c7361d829f603bd.jpg?x-oss-process=image/resize,w_206/quality,Q_80/format,webp" style="opacity: 1;">
           </div>
-          <h6>Smartisan 快充移动电源 10000mAh</h6>
-          <h3 >10000mAh 双向快充、轻盈便携、高标准安全保护</h3>
+          <h6>{{ item.name }}</h6>
+          <h3 >{{ item.name_title }}</h3>
           <div class="params-colors">
             <ul class="colors-list">
               <li><a href="javascript:;" class="active"><img src="http://img01.smartisanos.cn/attr/v2/1000299/B37F37544921114CEF1EC01ED4DF44E4/20X20.jpg"></a></li>
@@ -16,7 +16,7 @@
             <span class="item-gray-btn"><a href="javascript:;" target="_blank">查看详情</a> </span><span class="item-blue-btn">加入购物车 </span>
           </div>
           <div class="item-price clearfix">
-            <i>¥</i><span>199.00</span>
+            <i>¥</i><span>{{ item.price }}</span>
           </div>
           <div class="discount-icon">false</div>
           <div class="item-cover">
@@ -29,6 +29,13 @@
 </template>
 
 <script>
+export default {
+  props: {
+    goodsData: {
+      type: Array
+    }
+  }
+}
 </script>
 
 <style scoped>

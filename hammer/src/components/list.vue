@@ -11,7 +11,7 @@
             <li><a href="javascript:;" class="">价格高到低</a></li>
           </ul>
         </div>
-        <goods-item></goods-item>
+        <goods-item :goodsData="goodsData"></goods-item>
       </div>
     </div>
   </div>
@@ -24,6 +24,16 @@ export default {
   components: {
     goodsItem,
     appHeader
+  },
+  data () {
+    return {
+      goodsData: []
+    }
+  },
+  created () {
+    this.$http.get(global.globalData.api + 'goods-list').then((res) => {
+      this.goodsData = res.data
+    })
   }
 }
 </script>
