@@ -43,6 +43,7 @@ export default {
     // 加入购物车
     addShopCartHandle (goods) {
       this.$store.commit('addShopCartData', goods)
+      this.$store.commit('showCar')
     }
   }
 }

@@ -29,7 +29,7 @@
                         </p>
                         <h6>
                           <span class="price-icon">¥</span><span class="price-num">{{ item.price }}</span><span
-                          class="item-num">x 1</span>
+                          class="item-num">x {{ item.count }}</span>
                         </h6>
                       </div>
                     </div>
@@ -40,7 +40,7 @@
             </ul>
           </div>
           <div class="nav-cart-total">
-            <p>共 <strong class="ng-binding">{{ shopCartGoods.length }}</strong> 件商品</p>
+            <p>共 <strong class="ng-binding">{{ goodsTotalNum }}</strong> 件商品</p>
             <h5>合计：<span class="price-icon">¥</span><span class="price-num ng-binding"
                                                           ng-bind="cartMenu.totalPrice">{{ goodsTotalPrice }}</span></h5>
             <h6>
@@ -66,12 +66,18 @@ export default {
     // 购物车商品总价
     goodsTotalPrice () {
       return this.$store.getters.totalPriceGetter
+    },
+    // 购物车商品总数
+    goodsTotalNum () {
+      return this.$store.getters.totalNumGetter
     }
   },
   methods: {
+    // 显示购物车
     showCarHandle () {
       this.$store.commit('showCar')
     },
+    // 隐藏购物车
     hideCarHandle () {
       setTimeout(() => {
         this.$store.commit('hideCar')
