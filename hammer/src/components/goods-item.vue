@@ -12,7 +12,7 @@
             </ul>
           </div>
           <div class="item-btns clearfix">
-            <span class="item-gray-btn"><router-link :to="{ name: 'Detail', query: { skuId: goodsItemData.sku_info[skuSelected].sku_id}}">查看详情</router-link></span><span class="item-blue-btn">加入购物车 </span>
+            <span class="item-gray-btn"><router-link :to="{ name: 'Detail', query: { skuId: goodsItemData.sku_info[skuSelected].sku_id}}">查看详情</router-link></span><span class="item-blue-btn" @click="addShopCartHandle(goodsItemData.sku_info[skuSelected])">加入购物车 </span>
           </div>
           <div class="item-price clearfix">
             <i>¥</i><span>{{ goodsItemData.price }}</span>
@@ -38,8 +38,11 @@ export default {
   },
   methods: {
     skuActive (index) {
-      console.log(typeof index)
       this.skuSelected = index
+    },
+    // 加入购物车
+    addShopCartHandle (goods) {
+      this.$store.commit('addShopCartData', goods)
     }
   }
 }

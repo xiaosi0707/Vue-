@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueAxios from 'vue-axios'
 import Axios from 'axios'
+import store from './store'
 import '@/config/global'
 import '@/assets/css/reset.css'
 import '@/assets/css/header.css'
@@ -18,6 +19,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
