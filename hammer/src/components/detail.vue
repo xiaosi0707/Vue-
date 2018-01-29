@@ -32,7 +32,7 @@
             <div class="sku-dynamic-params clear">
               <span class="params-name">颜色</span>
               <ul class="params-colors">
-                <li class="cur" v-for="(skuItem, index) in detailData.sku_list" :key="index">
+                <li :class="{'cur': skuItem.id === $route.query.skuId}" v-for="(skuItem, index) in detailData.sku_list" :key="index">
                   <router-link :to="{ name: 'Detail', query: { skuId: skuItem.id}}">
                     <i><img :src="skuItem.image"></i>
                   </router-link>
