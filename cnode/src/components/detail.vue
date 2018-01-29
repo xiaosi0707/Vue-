@@ -26,7 +26,7 @@
               <img :src="item.author.avatar_url" alt="">
             </dt>
             <dd>
-              <p><span>{{ item.author.loginname }}</span><i @click="up(item)">赞<u v-show="item.is_uped">1</u></i><em
+              <p><span>{{ item.author.loginname }}</span><i @click="up(item, key)">赞<em v-show="item.is_uped">1</em></i><em
                 @click="showThisTextArea(item)">回复</em></p>
               <p v-html="item.content"></p>
             </dd>
@@ -134,11 +134,13 @@ export default {
       })
     },
     // 赞
-    up (item) {
+    up (item, index) {
+      console.log(index)
       // this.$set(item, 'is_uped', true) 也可以
       axios.post('https://cnodejs.org/api/v1/reply/' + item.id + '/ups', {
         accesstoken: token
       }).then((res) => {
+        // res.data.action === 'up' ? this.$set(item, 'is_uped', true) : this.$set(item, 'is_uped', false)
         res.data.action === 'up' ? this.$set(item, 'is_uped', true) : this.$set(item, 'is_uped', false)
         if (res.data.action === 'up') alert('点赞成功')
         if (res.data.action === 'down') alert('取消成功')

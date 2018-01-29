@@ -8,20 +8,12 @@
           <div class="gallery">
             <div class="thumbnail">
               <ul>
-                <li class="on"><img src="../assets/img/goods/ss1.jpg"></li>
-                <li><img src="../assets/img/goods/ss2.jpg"></li>
-                <li><img src="../assets/img/goods/ss3.jpg"></li>
-                <li><img src="../assets/img/goods/ss4.jpg"></li>
-                <li><img src="../assets/img/goods/ss5.jpg"></li>
+                <li  :class="{'on': selectedSku === index}" @click="skuSelect(index)" v-for="(imgItem, index ) in detailData.ali_images" :key="index"><img :src="imgItem + '?x-oss-process=image/resize,w_54/quality,Q_90/format,webp'"></li>
               </ul>
             </div>
             <div class="thumb">
               <ul>
-                <li class="on"><img src="../assets/img/goods/b1.png"></li>
-                <li><img src="../assets/img/goods/b1.png"></li>
-                <li><img src="../assets/img/goods/b1.png"></li>
-                <li><img src="../assets/img/goods/b1.png"></li>
-                <li><img src="../assets/img/goods/b1.png"></li>
+                <li :class="{'on': selectedSku === index}" v-for="(imgItem, index ) in detailData.ali_images" :key="index"><img :src="imgItem + '?x-oss-process=image/resize,w_440/quality,Q_90/format,webp'"></li>
               </ul>
             </div>
           </div>
@@ -40,8 +32,8 @@
             <div class="sku-dynamic-params clear">
               <span class="params-name">颜色</span>
               <ul class="params-colors">
-                <li :class="{'cur': selectedSku === index}" @click="skuSelect(index)" v-for="(skuItem, index) in detailData.sku_list" :key="index">
-                  <router-link to="#">
+                <li class="cur" v-for="(skuItem, index) in detailData.sku_list" :key="index">
+                  <router-link :to="{ name: 'Detail', query: { skuId: skuItem.id}}">
                     <i><img :src="skuItem.image"></i>
                   </router-link>
                 </li>
@@ -80,14 +72,14 @@ export default {
   data () {
     return {
       detailData: {},
-      selectedSku: ''
+      selectedSku: 0
     }
   },
   created () {
-    let skuId = this.$route.params.skuId
+    let skuId = this.$route.query.skuId
+    console.log(skuId)
     this.$http.get(global.globalData.api + 'goods-detail').then((res) => {
       this.detailData = res.data.filter((item) => {
-        console.log(item)
         return item.sku_id === skuId
       })[0]
     })
@@ -95,6 +87,11 @@ export default {
   methods: {
     skuSelect (index) {
       this.selectedSku = index
+    }
+  },
+  watch: {
+    $route () {
+      console.log(this.$route.query.skuId)
     }
   }
 }
