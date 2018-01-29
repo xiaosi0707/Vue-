@@ -76,22 +76,24 @@ export default {
     }
   },
   created () {
-    let skuId = this.$route.query.skuId
-    console.log(skuId)
-    this.$http.get(global.globalData.api + 'goods-detail').then((res) => {
-      this.detailData = res.data.filter((item) => {
-        return item.sku_id === skuId
-      })[0]
-    })
+    this.getDetailData()
+  },
+  watch: {
+    $route () {
+      this.getDetailData()
+    }
   },
   methods: {
     skuSelect (index) {
       this.selectedSku = index
-    }
-  },
-  watch: {
-    $route () {
-      console.log(this.$route.query.skuId)
+    },
+    getDetailData () {
+      let skuId = this.$route.query.skuId
+      this.$http.get(global.globalData.api + 'goods-detail').then((res) => {
+        this.detailData = res.data.filter((item) => {
+          return item.sku_id === skuId
+        })[0]
+      })
     }
   }
 }
