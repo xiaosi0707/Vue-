@@ -52,8 +52,8 @@
           </div>
           <div class="sku-status">
             <div class="cart-operation-wrapper clearfix">
-              <span class="blue-title-btn js-add-cart"><a>加入购物车</a></span>
-              <span class="gray-title-btn"><a>现在购买</a></span>
+              <span class="blue-title-btn js-add-cart"><a href="javascript:;" @click="addShopCartHandle(detailData)">加入购物车</a></span>
+              <span class="gray-title-btn"><a href="javascript:;">现在购买</a></span>
             </div>
           </div>
         </div>
@@ -94,6 +94,11 @@ export default {
           return item.sku_id === skuId
         })[0]
       })
+    },
+    // 加入购物车
+    addShopCartHandle (goods) {
+      this.$store.commit('addShopCartData', goods)
+      this.$store.commit('showCar')
     }
   }
 }

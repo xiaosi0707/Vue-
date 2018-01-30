@@ -1,7 +1,7 @@
 <template>
   <li class="nav-cart" @mouseenter="showCarHandle" @mouseleave="hideCarHandle">
     <a href="javascript:;">购物车</a>
-<span class="cart-empty-num cart-num">
+<span class="cart-empty-num" :class="{'cart-num': shopCartGoods.length}">
       <i>{{ shopCartGoods.length }}</i>
 </span>
     <div class="nav-cart-wrapper" v-show="carShow">
