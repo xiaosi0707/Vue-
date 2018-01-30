@@ -6,20 +6,21 @@ Vue.use(Vuex)
 let store = new Vuex.Store({
   state: {
     carShow: false,
-    shopCartData: []
+    shopCartData: [],
+    checked: true
   },
   getters: {
     totalPriceGetter (state) {
       let total = 0
-      state.shopCartData.map((item) => {
-        total += item.price * item.count
+      state.shopCartData.map((goods) => {
+        if (goods.checked) total += goods.price * goods.count
       })
       return total
     },
     totalNumGetter (state) {
       let total = 0
       state.shopCartData.map((goods) => {
-        total += goods.count
+        if (goods.checked) total += goods.count
       })
       return parseInt(total)
     }
@@ -42,6 +43,7 @@ let store = new Vuex.Store({
       })
       if (flag) {
         Vue.set(goods, 'count', 1)
+        Vue.set(goods, 'checked', true)
         state.shopCartData.push(goods)
       }
     },
@@ -51,6 +53,36 @@ let store = new Vuex.Store({
           state.shopCartData.splice(index, 1)
         }
       })
+    },
+    increment (state, goods) {
+      state.shopCartData.filter((item, index) => {
+        if (item.sku_id === goods.sku_id) {
+          Vue.set(item, item.count++)
+        }
+      })
+    },
+    goodsChecked (state, goods) {
+      state.shopCartData.filter((item, index) => {
+        if (item.sku_id === goods.sku_id) {
+          Vue.set(item, 'checked', !item.checked)
+        }
+        if (!goods.checked) {
+          state.checked = false
+        }
+      })
+    },
+    allChecked (state) {
+      if (!state.checked) {
+        state.shopCartData.filter((item) => {
+          Vue.set(item, 'checked', true)
+        })
+        state.checked = true
+      } else {
+        state.checked = !state.checked
+        state.shopCartData.filter((item) => {
+          Vue.set(item, 'checked', !item.checked)
+        })
+      }
     }
   }
 })

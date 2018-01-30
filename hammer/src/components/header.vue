@@ -27,7 +27,7 @@
             </div>
           </li>
           <!--active-->
-          <shop-cart></shop-cart>
+          <shop-cart-panel></shop-cart-panel>
         </ul>
         <ul class="nav-list">
           <li><a href="javascript:;">在线商城</a></li>
@@ -60,10 +60,10 @@
 </template>
 
 <script>
-import shopCart from './shop-cart'
+import shopCartPanel from './shop-cart-panel'
 export default {
   components: {
-    shopCart
+    shopCartPanel
   }
 }
 </script>
