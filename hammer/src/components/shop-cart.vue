@@ -95,7 +95,7 @@
 
               </div>
             </div>
-            <span class="jianguo-blue-main-btn big-main-btn js-checkout disabled-btn"><a>现在结算</a></span>
+            <span class="jianguo-blue-main-btn big-main-btn js-checkout disabled-btn"><router-link to="/checkout">现在结算</router-link></span>
           </div>
         </div>
       </div>

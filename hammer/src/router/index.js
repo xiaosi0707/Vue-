@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import List from '@/components/list'
 import Detail from '@/components/detail'
 import shopCart from '@/components/shop-cart'
+import Checkout from '@/components/checkout'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/shop-cart',
       name: 'shopCart',
       component: shopCart
+    },
+    {
+      path: '/checkout',
+      name: 'Checkout',
+      component: Checkout
     }
   ]
 })
