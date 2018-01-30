@@ -7,7 +7,8 @@ let store = new Vuex.Store({
   state: {
     carShow: false,
     shopCartData: [],
-    checked: true
+    checked: true,
+    addressPopShow: false
   },
   getters: {
     totalPriceGetter (state) {
@@ -83,6 +84,12 @@ let store = new Vuex.Store({
           Vue.set(item, 'checked', !item.checked)
         })
       }
+    },
+    showAddressPop (state) {
+      state.addressPopShow = true
+    },
+    hideAddressPop (state) {
+      state.addressPopShow = false
     }
   }
 })
