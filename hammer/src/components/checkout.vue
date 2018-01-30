@@ -69,47 +69,17 @@
             </div>
             <div class="cart-table">
               <div class="cart-group js-cart-group">
-                <div class="cart-items">
+                <div class="cart-items" v-for="(item, index) in goodsList" :key = index>
                   <div class="items-thumb">
-                    <a href="javascript:;" target="_blank"><img src="http://image.smartisanos.cn/resource/3802197aa7e78f9429eb5f6048a25047.jpg?x-oss-process=image/resize,w_80/quality,Q_100/format,webp"></a>
+                    <a href="javascript:;" target="_blank"><img :src="item.ali_image"></a>
                   </div>
                   <div class="name hide-row">
                     <div class="name-cell">
-                      <a href="javascript:;" title="坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）" target="_blank">坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）</a>
+                      <a href="javascript:;" title="坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）" target="_blank">{{  item.title }}（{{ item.spec_json.show_name }}）</a>
                     </div>
                   </div>
                   <div class="subtotal">
-                    <div class="subtotal-cell">  ¥ 49.00  </div>
-                  </div>
-                  <div class="goods-num">1</div>
-                  <div class="price">¥ 49.00</div>
-                </div>
-                <div class="cart-items">
-                  <div class="items-thumb">
-                    <a href="javascript:;" target="_blank"><img src="http://image.smartisanos.cn/resource/3802197aa7e78f9429eb5f6048a25047.jpg?x-oss-process=image/resize,w_80/quality,Q_100/format,webp"></a>
-                  </div>
-                  <div class="name hide-row">
-                    <div class="name-cell">
-                      <a href="javascript:;" title="坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）" target="_blank">坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）</a>
-                    </div>
-                  </div>
-                  <div class="subtotal">
-                    <div class="subtotal-cell">  ¥ 49.00  </div>
-                  </div>
-                  <div class="goods-num">1</div>
-                  <div class="price">¥ 49.00</div>
-                </div>
-                <div class="cart-items">
-                  <div class="items-thumb">
-                    <a href="javascript:;" target="_blank"><img src="http://image.smartisanos.cn/resource/3802197aa7e78f9429eb5f6048a25047.jpg?x-oss-process=image/resize,w_80/quality,Q_100/format,webp"></a>
-                  </div>
-                  <div class="name hide-row">
-                    <div class="name-cell">
-                      <a href="javascript:;" title="坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）" target="_blank">坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)（黑色）</a>
-                    </div>
-                  </div>
-                  <div class="subtotal">
-                    <div class="subtotal-cell">  ¥ 49.00  </div>
+                    <div class="subtotal-cell">  ¥ {{ item.price }}  </div>
                   </div>
                   <div class="goods-num">1</div>
                   <div class="price">¥ 49.00</div>
@@ -120,14 +90,14 @@
           </div>
           <div class="box-inner">
             <div class="order-discount-line">
-              <p> 商品总计： <span>¥ 297.00</span> </p>
+              <p> 商品总计： <span>¥ {{ orderMoney }}</span> </p>
               <p> 运费： <span>+ ¥ 0.00</span> </p>
               <p class="discount-line js-discount-cash"> <em>现金券</em>： <span> - 0 </span> </p>
             </div>
           </div>
           <div class="box-inner">
             <div class="last-payment clear">
-              <span class="jianguo-blue-main-btn big-main-btn payment-blue-bt fn-right js-checkout"> <a>提交订单</a> </span> <span class="prices fn-right">应付金额： <em>¥ 297.00</em></span>
+              <span class="jianguo-blue-main-btn big-main-btn payment-blue-bt fn-right js-checkout"> <a>提交订单</a> </span> <span class="prices fn-right">应付金额： <em>¥ {{ orderMoney }}</em></span>
             </div>
           </div>
         </div>
@@ -140,6 +110,14 @@ import appHeader from './header'
 export default {
   components: {
     appHeader
+  },
+  computed: {
+    goodsList () {
+      return this.$store.state.shopCartData
+    },
+    orderMoney () {
+      return this.$store.getters.totalPriceGetter
+    }
   }
 }
 </script>

@@ -95,7 +95,7 @@
 
               </div>
             </div>
-            <span class="jianguo-blue-main-btn big-main-btn js-checkout disabled-btn"><router-link to="/checkout">现在结算</router-link></span>
+            <span class="jianguo-blue-main-btn big-main-btn js-checkout" :class="{'disabled-btn': shopCartGoodsTotal == 0}"><router-link :to=" shopCartGoodsTotal == 0 ? '' : '/checkout'">现在结算</router-link></span>
           </div>
         </div>
       </div>
