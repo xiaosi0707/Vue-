@@ -92,7 +92,6 @@
                 <h5 class="shipping-tips">
                   应付总额不含运费
                 </h5>
-
               </div>
             </div>
             <span class="jianguo-blue-main-btn big-main-btn js-checkout" :class="{'disabled-btn': shopCartGoodsTotal == 0}"><router-link :to=" shopCartGoodsTotal == 0 ? '' : '/checkout'">现在结算</router-link></span>

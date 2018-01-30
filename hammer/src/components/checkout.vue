@@ -97,7 +97,7 @@
           </div>
           <div class="box-inner">
             <div class="last-payment clear">
-              <span class="jianguo-blue-main-btn big-main-btn payment-blue-bt fn-right js-checkout"> <a>提交订单</a> </span> <span class="prices fn-right">应付金额： <em>¥ {{ orderMoney }}</em></span>
+              <span class="jianguo-blue-main-btn big-main-btn payment-blue-bt fn-right js-checkout"> <router-link to="/pay">提交订单</router-link> </span> <span class="prices fn-right">应付金额： <em>¥ {{ orderMoney }}</em></span>
             </div>
           </div>
         </div>
