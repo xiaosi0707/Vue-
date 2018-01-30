@@ -43,16 +43,13 @@ let store = new Vuex.Store({
         Vue.set(goods, 'count', 1)
         state.shopCartData.push(goods)
       }
-      // if (state.shopCartData.length > 0) {
-      //   state.shopCartData.map((item) => {
-      //     if (item.sku_id === goods.sku_id) {
-      //       console.log('已存在')
-      //       goods.count++
-      //     } else {
-      //       // state.shopCartData.push(goods)
-      //     }
-      //   })
-      // }
+    },
+    removeShopCartData (state, goods) {
+      state.shopCartData.filter((item, index) => {
+        if (item.sku_id === goods.sku_id) {
+          state.shopCartData.splice(index, 1)
+        }
+      })
     }
   }
 })
