@@ -42,7 +42,7 @@
                   </div>
                   <div class="module-form-row clear">
                     <div class="form-item-v3 select-item province-wrapper">
-                      <select name="province_code" class="province select-province js-form-province js-verify" v-model="addressInfo.pro">
+                      <select name="province_code" class="province select-province js-form-province js-verify" v-model="addressData.pro">
                         <option value="0">请选择省份</option>
                         <option :value="pro.area_id" v-for="(pro, index) in addressList" :key="index">{{ pro.area_name }}</option>
                       </select>
@@ -50,15 +50,15 @@
                   </div>
                   <div class="module-form-row clear">
                     <div class="form-item-v3 select-item city-wrapper fn-left form-focus-item">
-                      <select class="city select-city js-form-city js-verify" v-model="addressInfo.city">
+                      <select class="city select-city js-form-city js-verify" v-model="addressData.city">
                         <option value="0">请选择城市</option>
-                        <option :value="city.area_id" v-for="(city, index) in cityList.city_list" :key="index">{{ city.area_name }}</option>
+                        <option :value="city.area_id" v-for="(city, index) in proList.city_list" :key="index">{{ city.area_name }}</option>
                       </select>
                     </div>
                     <div class="form-item-v3 select-item district-wrapper fn-right form-focus-item">
-                      <select class="city select-city js-form-city js-verify" v-model="addressInfo.county">
+                      <select class="city select-city js-form-city js-verify" v-model="addressData.county">
                         <option value="0">请选择区县</option>
-                        <option :value="county.area_id" v-for="(county, index) in countyList.county_list" :key="index">{{ county.area_name }}</option>
+                        <option :value="county.area_id" v-for="(county, index) in cityList.county_list" :key="index">{{ county.area_name }}</option>
                       </select>
                     </div>
                   </div>
@@ -90,6 +90,13 @@
 export default {
   data () {
     return {
+      // area_id需要根据获取的ID和选中的进行对比
+      addressData: {
+        'pro': '',
+        'city': '',
+        'county': ''
+      },
+      // 真实文本数据
       addressInfo: {
         'name': '',
         'mobile': '',
@@ -100,6 +107,7 @@ export default {
         'address': ''
       },
       addressList: [],
+      proList: [],
       cityList: [],
       countyList: []
     }
@@ -110,17 +118,26 @@ export default {
     })
   },
   watch: {
-    'addressInfo.pro' () { // 监听省份
-      this.cityList = this.addressList.filter((address) => {
-        if (address.area_id === this.addressInfo.pro) {
+    'addressData.pro' () { // 监听省份
+      this.proList = this.addressList.filter((address) => {
+        if (address.area_id === this.addressData.pro) {
+          this.addressInfo.pro = address.area_name
           return address
         }
       })[0]
     },
-    'addressInfo.city' () { // 监听城市
-      this.countyList = this.cityList.city_list.filter((county) => {
-        if (county.area_id === this.addressInfo.city) {
-          console.log(county)
+    'addressData.city' () { // 监听城市
+      this.cityList = this.proList.city_list.filter((county) => {
+        if (county.area_id === this.addressData.city) {
+          this.addressInfo.city = county.area_name
+          return county
+        }
+      })[0]
+    },
+    'addressData.county' () { // 监听区县
+      this.coutyList = this.cityList.county_list.filter((county) => {
+        if (county.area_id === this.addressData.county) {
+          this.addressInfo.county = county.area_name
           return county
         }
       })[0]
