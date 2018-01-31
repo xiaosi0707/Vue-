@@ -8,7 +8,8 @@ let store = new Vuex.Store({
     carShow: false,
     shopCartData: [],
     checked: true,
-    addressPopShow: false
+    addressPopShow: false,
+    addressData: []
   },
   getters: {
     totalPriceGetter (state) {
@@ -90,6 +91,10 @@ let store = new Vuex.Store({
     },
     hideAddressPop (state) {
       state.addressPopShow = false
+    },
+    // 创建收货地址
+    createAddress (state, addressObj) {
+      state.addressData.push(addressObj)
     }
   }
 })

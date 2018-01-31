@@ -10,17 +10,17 @@
             <div class="box-inner js-checkout-address-panel ">
               <div class="address-common-table js-multiple-address-panel">
                 <ul class="address-item-list clear js-address-item-list">
-                  <!--<li class="js-choose-address  selected-address-item">-->
-                    <!--<div class="address-item">-->
-                      <!--<div class="name-section">  王某某  </div>-->
-                      <!--<div class="mobile-section">13810000000</div>-->
-                      <!--<div class="detail-section"> 北京市 市辖区 海淀区<br> 上地十街辉煌国际大商西6号楼319室 </div>-->
-                    <!--</div>-->
-                    <!--<div class="operation-section">-->
-                      <!--<span class="update-btn js-edit-address">修改</span>-->
-                      <!--<span class="delete-btn js-delete-address">删除</span>-->
-                    <!--</div>-->
-                  <!--</li>-->
+                  <li class="js-choose-address  selected-address-item" v-for="(item, index) in addressList " :key="index">
+                    <div class="address-item">
+                      <div class="name-section"> {{ item.name }} </div>
+                      <div class="mobile-section">{{ item.mobile }}</div>
+                      <div class="detail-section"> {{ item.pro }} {{ item.city }} {{ item.county }} <br> {{ item.address }} </div>
+                    </div>
+                    <div class="operation-section">
+                      <span class="update-btn js-edit-address">修改</span>
+                      <span class="delete-btn js-delete-address">删除</span>
+                    </div>
+                  </li>
                   <li class="add-address-item js-add-address" @click="showAddressPophandle">
                     <p>使用新地址</p>
                   </li>
@@ -123,6 +123,9 @@ export default {
     },
     addressPopState () {
       return this.$store.state.addressPopShow
+    },
+    addressList () {
+      return this.$store.state.addressData
     }
   },
   methods: {

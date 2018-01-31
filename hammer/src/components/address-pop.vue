@@ -17,14 +17,14 @@
                   <div class="module-form-row">
                     <div class="form-item-v3">
                       <i>收货人姓名</i>
-                      <input type="text" class="js-verify">
+                      <input type="text" class="js-verify" v-model="addressInfo.name">
                       <div class="verify-error"></div>
                     </div>
                   </div>
                   <div class="module-form-row">
                     <div class="form-item-v3">
                       <i>手机号</i>
-                      <input type="text" class="js-verify">
+                      <input type="text" class="js-verify" v-model="addressInfo.mobile">
                       <div class="verify-error"></div>
                     </div>
                   </div>
@@ -42,40 +42,30 @@
                   </div>
                   <div class="module-form-row clear">
                     <div class="form-item-v3 select-item province-wrapper">
-                      <select name="province_code" class="province select-province js-form-province js-verify">
+                      <select name="province_code" class="province select-province js-form-province js-verify" v-model="addressInfo.pro">
                         <option value="0">请选择省份</option>
-                        <option value="110000">北京市</option>
-                        <option value="440000">广东省</option>
-                        <option value="310000">上海市</option>
-                        <option value="320000">江苏省</option>
-                        <option value="330000">浙江省</option>
-                        <option value="370000">山东省</option>
-                        <option value="410000">河南省</option>
-                        <option value="510000">四川省</option>
-                        <option value="130000">河北省</option>
-                        <option value="420000">湖北省</option>
-                        <option value="340000">安徽省</option>
-                        <option value="350000">福建省</option>
+                        <option :value="pro.area_id" v-for="(pro, index) in addressList" :key="index">{{ pro.area_name }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="module-form-row clear">
                     <div class="form-item-v3 select-item city-wrapper fn-left form-focus-item">
-                      <select class="city select-city js-form-city js-verify">
+                      <select class="city select-city js-form-city js-verify" v-model="addressInfo.city">
                         <option value="0">请选择城市</option>
+                        <option :value="city.area_id" v-for="(city, index) in cityList.city_list" :key="index">{{ city.area_name }}</option>
                       </select>
                     </div>
                     <div class="form-item-v3 select-item district-wrapper fn-right form-focus-item">
-                      <select class="city select-city js-form-city js-verify">
+                      <select class="city select-city js-form-city js-verify" v-model="addressInfo.county">
                         <option value="0">请选择区县</option>
-                        <option value="0">请选择区县</option>
+                        <option :value="county.area_id" v-for="(county, index) in countyList.county_list" :key="index">{{ county.area_name }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="module-form-row">
                     <div class="form-item-v3">
                       <i>详细地址，如街道名称，楼层，门牌号码等</i>
-                      <input type="text" class="js-verify">
+                      <input type="text" class="js-verify" v-model="addressInfo.address">
                       <div class="verify-error"></div>
                     </div>
                   </div>
@@ -83,8 +73,8 @@
                     <input type="checkbox" class="hide">
                     <span class="blue-checkbox"></span>设为默认
                   </div>
-                  <div class="dialog-blue-btn big-main-btn disabled-btn js-verify-address">
-                    <a>保存</a>
+                  <div class="dialog-blue-btn big-main-btn js-verify-address"> <!-- disabled-btn -->
+                    <a href="javascript:;" @click="saveAddressHandle">保存</a>
                   </div>
                 </div>
               </div>
@@ -98,9 +88,50 @@
 
 <script>
 export default {
+  data () {
+    return {
+      addressInfo: {
+        'name': '',
+        'mobile': '',
+        'telephone': '',
+        'pro': '',
+        'city': '',
+        'county': '',
+        'address': ''
+      },
+      addressList: [],
+      cityList: [],
+      countyList: []
+    }
+  },
+  created () {
+    this.$http.get(global.globalData.api + 'address').then((res) => {
+      this.addressList = res.data
+    })
+  },
+  watch: {
+    'addressInfo.pro' () { // 监听省份
+      this.cityList = this.addressList.filter((address) => {
+        if (address.area_id === this.addressInfo.pro) {
+          return address
+        }
+      })[0]
+    },
+    'addressInfo.city' () { // 监听城市
+      this.countyList = this.cityList.city_list.filter((county) => {
+        if (county.area_id === this.addressInfo.city) {
+          console.log(county)
+          return county
+        }
+      })[0]
+    }
+  },
   methods: {
     hideAddressPopHandle () {
       this.$store.commit('hideAddressPop')
+    },
+    saveAddressHandle () {
+      this.$store.commit('createAddress', this.addressInfo)
     }
   }
 }
