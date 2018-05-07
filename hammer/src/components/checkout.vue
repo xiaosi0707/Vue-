@@ -10,7 +10,7 @@
             <div class="box-inner js-checkout-address-panel ">
               <div class="address-common-table js-multiple-address-panel">
                 <ul class="address-item-list clear js-address-item-list">
-                  <li class="js-choose-address  selected-address-item" v-for="(item, index) in addressList " :key="index">
+                  <li class="js-choose-address" :class="{'selected-address-item': item.checked}" v-for="(item, index) in addressList " :key="index">
                     <div class="address-item">
                       <div class="name-section"> {{ item.name }} </div>
                       <div class="mobile-section">{{ item.mobile }}</div>

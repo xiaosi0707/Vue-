@@ -8,12 +8,12 @@
             <li><a href="javascript:;" class="active">综合排序</a></li>
             <li><a href="javascript:;" class="">销量排序</a></li>
             <li><a href="javascript:;" class="">价格低到高</a></li>
-            <li><a href="javascript:;" class="">价格高到低</a></li>
+            <li><a href="javascript:;" class="" @click="sortMaxToMin">价格高到低</a></li>
           </ul>
         </div>
         <div class="gray-box">
           <div class="item-box">
-        <goods-item v-for="(item, index) in goodsData" :key="index" :goodsItemData="item" ></goods-item>
+        <goods-item v-for="(item, index) in sGoodsData" :key="index" :goodsItemData="item" ></goods-item>
           </div>
         </div>
       </div>
@@ -29,15 +29,18 @@ export default {
     goodsItem,
     appHeader
   },
-  data () {
-    return {
-      goodsData: []
+  computed: {
+    sGoodsData () {
+      return this.$store.state.goodsData
     }
   },
   created () {
-    this.$http.get(global.globalData.api + 'goods-list').then((res) => {
-      this.goodsData = res.data
-    })
+    this.$store.dispatch('aGetGoodsData')
+  },
+  methods: {
+    sortMaxToMin () {
+      console.log(this.goodsData)
+    }
   }
 }
 </script>

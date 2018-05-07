@@ -22,9 +22,9 @@ export default {
   },
   methods: {
     addHandle () {
-      // this.$store.commit('addIncrement', {
-      //   n: 5
-      // }) // 通过commit提交mutation
+      this.$store.commit('addIncrement', {
+        n: 5
+      }) // 通过commit提交mutation
       this.$store.dispatch('addAction') // 通过dispatch来触发action
     },
     delHandle () {

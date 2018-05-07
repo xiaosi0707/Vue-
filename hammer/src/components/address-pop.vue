@@ -70,8 +70,8 @@
                     </div>
                   </div>
                   <div class="module-form-row fn-clear">
-                    <input type="checkbox" class="hide">
-                    <span class="blue-checkbox"></span>设为默认
+                    <input type="checkbox" value="1" class="hide">
+                    <span class="blue-checkbox" @click="setDefaultAddress"></span>设为默认
                   </div>
                   <div class="dialog-blue-btn big-main-btn js-verify-address"> <!-- disabled-btn -->
                     <a href="javascript:;" @click="saveAddressHandle">保存</a>
@@ -104,7 +104,8 @@ export default {
         'pro': '',
         'city': '',
         'county': '',
-        'address': ''
+        'address': '',
+        'checked': false
       },
       addressList: [],
       proList: [],
@@ -149,12 +150,17 @@ export default {
     },
     saveAddressHandle () {
       this.$store.commit('createAddress', this.addressInfo)
+      this.$store.commit('hideAddressPop')
+    },
+    // 设为默认
+    setDefaultAddress () {
+      this.addressInfo.checked = true
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
   #pop .module-dialog-layer{
     display: none;
     position: fixed;
@@ -243,7 +249,7 @@ export default {
   #pop .module-dialog .dialog-close:hover{
     opacity: .3;
   }
-  #pop .module-dialog .animate-layer{
+  .module-dialog .animate-layer{
     position: relative;
   }
   #pop .module-dialog-address .save-address-box{
@@ -254,7 +260,7 @@ export default {
     width: 370px;
     margin: 0 auto;
   }
-  #pop .account-address .address-form{
+  .account-address .address-form{
     padding: 30px;
     margin: 0;
   }
@@ -293,6 +299,32 @@ export default {
   }
   #pop .address-form .form-item-v3 input{
     width: 330px;
+  }
+  #pop .address-form .form-item-v3:after{
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    z-index: 11;
+    height: 26px;
+    padding: 0 10px;
+    margin-top: -13px;
+    background: #D16D62;
+    border-radius: 4px;
+    line-height: 26px;
+    font-size: 12px;
+    color: #FFF;
+    visibility: hidden;
+    content: "手机号格式错误";
+    opacity: 0;
+    transition: all .3s ease-in;
+  }
+  #pop .module-form-row .form-invalid-item{
+    opacity: 1;
+    border: 1px solid #D16D62;
+  }
+  #pop .module-form-row .form-invalid-item:after{
+    visibility: visible;
+    opacity: 1;
   }
   #pop .address-form .area-code-w{
     width: 118px;
@@ -349,10 +381,10 @@ export default {
     -moz-appearance: none;
     cursor: pointer;
   }
-  #pop .address-form .select-city, .address-form .select-district{
+  #pop .address-form .select-city, #pop .address-form .select-district{
     width: 180px;
   }
-  #pop .blue-checkbox, .blue-checkbox-disable, .blue-checkbox-on{
+  #pop .blue-checkbox, #pop .blue-checkbox-disable, #pop .blue-checkbox-on{
     display: inline-block;
     position: relative;
     width: 20px;
@@ -364,6 +396,9 @@ export default {
     top: 0;
     float: left;
     margin-right: 5px;
+  }
+  #pop .blue-checkbox-on, .choose-checkbox-on .blue-checkbox{
+    background: url(../assets/img/checkbox-bg.png) 0 -20px no-repeat;
   }
   #pop .dialog-blue-btn{
     padding: 1px;
@@ -396,13 +431,5 @@ export default {
     height: 42px;
     line-height: 42px;
     font-size: 18px;
-  }
-  #pop .module-form-row .form-invalid-item{
-    opacity: 1;
-    border: 1px solid #D16D62;
-  }
-  #pop .module-form-row .form-invalid-item:after{
-    visibility: visible;
-    opacity: 1;
   }
 </style>

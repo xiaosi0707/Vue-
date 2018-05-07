@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Axios from 'axios'
 
 Vue.use(Vuex)
 
 let store = new Vuex.Store({
   state: {
+    goodsData: [],
     carShow: false,
     shopCartData: [],
     checked: true,
@@ -28,6 +30,9 @@ let store = new Vuex.Store({
     }
   },
   mutations: {
+    mGetGoodsData (state, payLoad) {
+      state.goodsData = payLoad
+    },
     showCar (state) {
       state.carShow = true
     },
@@ -95,6 +100,15 @@ let store = new Vuex.Store({
     // 创建收货地址
     createAddress (state, addressObj) {
       state.addressData.push(addressObj)
+    },
+    // 收货地址 - 默认
+    setDefaultAddress (state) {}
+  },
+  actions: {
+    aGetGoodsData (context) {
+      Axios.get(global.globalData.api + 'goods-list').then((res) => {
+        context.commit('mGetGoodsData', res.data)
+      })
     }
   }
 })
